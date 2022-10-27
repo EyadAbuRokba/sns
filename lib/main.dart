@@ -28,7 +28,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<UserProvider>( create: (context) => UserProvider()),
+        ChangeNotifierProvider<UserProvider>( create: (context) => UserProvider()..getMuns(context)),
       ],
       child: MaterialApp(
         color: Colors.white,

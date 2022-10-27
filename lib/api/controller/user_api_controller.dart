@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:swmc/api/api_settings.dart';
 import 'package:http/http.dart' as http;
 import 'package:swmc/api/controller/base_response.dart';
+import 'package:swmc/models/model_cities.dart';
 import 'package:swmc/models/user.dart';
 import 'package:swmc/preferences/user_preferences.dart';
 import 'package:swmc/utils/helpers.dart';
@@ -108,24 +109,23 @@ class UserApiController with Helpers{
     }
   }
 
-  // Future<List<Muns>?> getMun(BuildContext context) async {
-  //   var url = Uri.parse(ApiSettings.GIT_MUN);
-  //   var response = await http.get(url);
-  //
-  //   if (response.statusCode < 400) {
-  //     var jsonResponse = jsonDecode(response.body);
-  //     BaseResponse baseResponse = BaseResponse.fromJson(jsonResponse);
-  //     return baseResponse.muns;
-  //   } else if (response.statusCode != 500) {
-  //     Helpers.showSnacKBar(
-  //         context: context,
-  //         message: jsonDecode(response.body)['message'],
-  //         error: true);
-  //   } else {
-  //     Helpers.showSnacKBar(context: context, message: 'يوجد خطأ', error: true);
-  //   }
-  //   return [];
-  // }
+  Future<List<Muns>?> getMun(BuildContext context) async {
+    var url = Uri.parse(ApiSettings.GIT_MUN);
+     var response = await http.get(url,headers:{"Authorization":await UserSharedPreferencesController().GetToken});
+    if (response.statusCode < 400) {
+      var jsonResponse = jsonDecode(response.body);
+      cities baseResponse = cities.fromJson(jsonResponse);
+      return baseResponse.muns;
+    } else if (response.statusCode != 500) {
+      Helpers.showSnacKBar(
+          context: context,
+          message: jsonDecode(response.body)['message'],
+          error: true);
+    } else {
+      Helpers.showSnacKBar(context: context, message: 'يوجد خطأ', error: true);
+    }
+    return [];
+  }
 
   Future<void> sendProblem({
     required String title,

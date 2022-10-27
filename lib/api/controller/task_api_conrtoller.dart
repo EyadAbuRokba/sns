@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:swmc/api/api_settings.dart';
+import 'package:swmc/models/model_cities.dart';
 import 'package:swmc/models/user.dart';
 import 'package:swmc/preferences/user_preferences.dart';
 import 'package:swmc/utils/helpers.dart';
@@ -47,8 +48,6 @@ class TaskApiController {
       throw Exception('Failed to create album.');
     }
   }
-
-
   static Future<bool> creatTask(BuildContext context , String title) async {
     var url = Uri.parse(ApiSettings.ADD_PROBLEM);
     var response = await http.post(url, body: {
@@ -71,5 +70,13 @@ class TaskApiController {
         message: jsonDecode(response.body)['message'],
         error: true);
     return false;
+  }
+
+  Future<List<Muns>> GetMunes()async{
+    var url = Uri.parse(ApiSettings.GIT_MUN);
+    var response = await http.get(url);
+
+
+    return [];
   }
 }

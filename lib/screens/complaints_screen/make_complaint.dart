@@ -7,7 +7,7 @@ import 'package:swmc/api/controller/user_api_controller.dart';
 import 'package:swmc/api/provider/user_provider.dart';
 import 'package:swmc/utils/helpers.dart';
 import 'package:swmc/utils/size_config.dart';
-
+import 'dart:developer';
 class MakeComplaint extends StatefulWidget {
   const MakeComplaint({Key? key}) : super(key: key);
 
@@ -17,7 +17,7 @@ class MakeComplaint extends StatefulWidget {
 
 class _MakeComplaintState extends State<MakeComplaint> {
   String dropdownValueT = ' شكوى';
-
+  String idCities = "0";
   String dropdownValue =
       'مجلس الخدمات المشترك للتخطيط والتطوير في محافظة شمال غزة';
 
@@ -38,17 +38,16 @@ class _MakeComplaintState extends State<MakeComplaint> {
       // key: addproblemKey,
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
+        centerTitle: true,
         backgroundColor: Color(0xFF0DBD7D),
         elevation: 0,
-        title: Center(
-          child: Text(
-            ' تقديم شكوى',
-            style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'Cairo',
-                color: Colors.white),
-          ),
+        title: Text(
+          ' تقديم شكوى',
+          style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              fontFamily: 'Cairo',
+              color: Colors.white),
         ),
         leading: IconButton(
           onPressed: () {
@@ -94,60 +93,86 @@ class _MakeComplaintState extends State<MakeComplaint> {
               SizedBox(
                 height: SizeConfig.scaleHeight(10),
               ),
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.grey.shade100,
-                  borderRadius: new BorderRadius.circular(10),
-                ),
-                // width: 317,
-                height: SizeConfig.scaleHeight(80),
-
-                child: Padding(
-                  padding: EdgeInsetsDirectional.only(
-                    top: SizeConfig.scaleHeight(10),
-                    start: SizeConfig.scaleWidth(12),
-                    end: SizeConfig.scaleWidth(12),
+              // Container(
+              //   decoration: BoxDecoration(
+              //     color: Colors.grey.shade100,
+              //     borderRadius: new BorderRadius.circular(10),
+              //   ),
+              //   // width: 317,
+              //   height: SizeConfig.scaleHeight(80),
+              //
+              //   child: Padding(
+              //     padding: EdgeInsetsDirectional.only(
+              //       top: SizeConfig.scaleHeight(10),
+              //       start: SizeConfig.scaleWidth(12),
+              //       end: SizeConfig.scaleWidth(12),
+              //     ),
+              //     child: Row(
+              //       crossAxisAlignment: CrossAxisAlignment.start,
+              //       children: [
+              //         Padding(
+              //           padding: EdgeInsetsDirectional.all(20),
+              //           child: Container(
+              //             height: SizeConfig.scaleHeight(25),
+              //             width: SizeConfig.scaleWidth(255),
+              //             child: TextField(
+              //               controller: titleController,
+              //               decoration: InputDecoration(
+              //                 hintText: ' اكتب عنوان الموضوع هنا ',
+              //                 hintStyle: TextStyle(
+              //                     color: Colors.black,
+              //                     fontSize: 10,
+              //                     fontFamily: 'Cairo'),
+              //                 enabledBorder: OutlineInputBorder(
+              //                   borderSide: BorderSide(
+              //                     color: Colors.grey.shade100,
+              //                   ),
+              //                 ),
+              //                 focusedBorder: OutlineInputBorder(
+              //                   borderSide: BorderSide(
+              //                     color: Colors.grey.shade100,
+              //                   ),
+              //                 ),
+              //               ),
+              //               // onChanged: (value) {
+              //               //   setState(() {
+              //               //      = value;
+              //               //   });
+              //               // },
+              //             ),
+              //           ),
+              //         ),
+              //       ],
+              //     ),
+              //   ),
+              // ),
+              TextField(
+                controller: titleController,
+                decoration: InputDecoration(
+                  hintText: ' اكتب عنوان الموضوع هنا ',
+                  hintStyle: TextStyle(
+                      color: Colors.black,
+                      fontSize: 10,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Cairo'),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(90),
+                    borderSide: BorderSide(
+                      color: Color(0xFF0DBD7D),
+                     ),
                   ),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: EdgeInsetsDirectional.all(20),
-                        child: Container(
-                          height: SizeConfig.scaleHeight(25),
-                          width: SizeConfig.scaleWidth(255),
-                          child: TextField(
-
-                            controller: titleController,
-
-                            decoration: InputDecoration(
-                              hintText: ' اكتب عنوان الموضوع هنا ',
-                              hintStyle: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 10,
-                                  fontFamily: 'Cairo'),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Colors.grey.shade100,
-                                ),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Colors.grey.shade100,
-                                ),
-                              ),
-                            ),
-                            // onChanged: (value) {
-                            //   setState(() {
-                            //      = value;
-                            //   });
-                            // },
-                          ),
-                        ),
-                      ),
-                    ],
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(90),
+                    borderSide: BorderSide(
+                      color: Color(0xFF0DBD7D),
+                    ),
                   ),
                 ),
+                // onChanged: (value) {
+                //   setState(() {
+                //      = value;
+                //   });
+                // },
               ),
               Text(
                 'الجهة المختصة',
@@ -162,7 +187,10 @@ class _MakeComplaintState extends State<MakeComplaint> {
               Container(
                 decoration: BoxDecoration(
                   color: Colors.grey.shade100,
-                  borderRadius: new BorderRadius.circular(10),
+                  borderRadius:   BorderRadius.circular(90),
+                  border: Border.all(
+                    color: Color(0xFF0DBD7D),
+                  )
                 ),
                 width: double.infinity,
                 height: SizeConfig.scaleHeight(60),
@@ -177,31 +205,26 @@ class _MakeComplaintState extends State<MakeComplaint> {
                       height: SizeConfig.scaleHeight(25),
                       width: SizeConfig.scaleWidth(250),
                       child: DropdownButton<String>(
-
+                        isExpanded: true,
                         style: TextStyle(
                             color: Colors.black,
-                            fontSize: 10,
+                            fontSize: 9,
                             fontFamily: 'Cairo'),
                         value: dropdownValue,
-                        iconSize: 24,
+                        iconSize: 20,
                         elevation: 16,
                         underline: Container(
                           height: 2,
                         ),
                         onChanged: (value) {
-                          setState(() {
+                            setState(() {
                             dropdownValue = value!;
-                          });
+                            idCities = Provider.of<UserProvider>(context,listen: false).citis_id.elementAt(Provider.of<UserProvider>(context,listen: false).citis_name.lastIndexOf(value!));
+                            });
                         },
-                        items: <String>[
-                          'مجلس الخدمات المشترك للتخطيط والتطوير في محافظة شمال غزة',
-                          'مجلس الخدمات لادارة النفايات الصلبة محافظة غزة والشمال',
-                          'بلدية بيت لاهيا ',
-                          'بلدية بيت حانون ',
-                          'بلدية جباليا',
-                        ].map<DropdownMenuItem<String>>((String nvalue) {
+                        items:Provider.of<UserProvider>(context,listen: false).citis_name.map<DropdownMenuItem<String>>((String nvalue) {
                           return DropdownMenuItem<String>(
-                            value: nvalue,
+                            value: nvalue.toString(),
                             child: Text(nvalue),
                           );
                         }).toList(),
@@ -221,7 +244,10 @@ class _MakeComplaintState extends State<MakeComplaint> {
               Container(
                 decoration: BoxDecoration(
                   color: Colors.grey.shade100,
-                  borderRadius: new BorderRadius.circular(10),
+                  borderRadius: new BorderRadius.circular(90),
+                  border: Border.all(
+                    color: Color(0xFF0DBD7D),
+                  )
                 ),
                 width: double.infinity,
                 height: SizeConfig.scaleHeight(60),
@@ -236,6 +262,7 @@ class _MakeComplaintState extends State<MakeComplaint> {
                       height: SizeConfig.scaleHeight(25),
                       width: SizeConfig.scaleWidth(250),
                       child: DropdownButton<String>(
+                        isExpanded: true,
                         style: TextStyle(
                             color: Colors.black,
                             fontSize: 10,
@@ -274,60 +301,35 @@ class _MakeComplaintState extends State<MakeComplaint> {
               SizedBox(
                 height: SizeConfig.scaleHeight(10),
               ),
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.grey.shade100,
-                  borderRadius: new BorderRadius.circular(10),
-                ),
-                // width: 317,
-                height: SizeConfig.scaleHeight(60),
-
-                child: Padding(
-                  padding: EdgeInsetsDirectional.only(
-                    top: SizeConfig.scaleHeight(10),
-                    start: SizeConfig.scaleWidth(12),
-                    end: SizeConfig.scaleWidth(12),
+              TextField(
+                // controller: admin_idController,
+                keyboardType: TextInputType.phone,
+                decoration: InputDecoration(
+                  hintText: ' اكتب رقم الاتصال هنا ',
+                  hintStyle: TextStyle(
+                      color: Colors.black,
+                      fontSize: 10,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Cairo'),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(90),
+                    borderSide: BorderSide(
+                      color: Color(0xFF0DBD7D),
+                    ),
                   ),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: EdgeInsetsDirectional.all(20),
-                        child: Container(
-                          height: SizeConfig.scaleHeight(20),
-                          width: SizeConfig.scaleWidth(255),
-                          child: TextField(
-                            // controller: admin_idController,
-                            keyboardType: TextInputType.phone,
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(90),
+                    borderSide: BorderSide(
+                      color: Color(0xFF0DBD7D),
 
-                            decoration: InputDecoration(
-                              hintText: ' اكتب رقم الاتصال هنا ',
-                              hintStyle: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 10,
-                                  fontFamily: 'Cairo'),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Colors.grey.shade100,
-                                ),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Colors.grey.shade100,
-                                ),
-                              ),
-                            ),
-                            // onChanged: (value) {
-                            //   setState(() {
-                            //     ncontent = value;
-                            //   });
-                            // },
-                          ),
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
                 ),
+                // onChanged: (value) {
+                //   setState(() {
+                //      = value;
+                //   });
+                // },
               ),
               SizedBox(height: SizeConfig.scaleHeight(12)),
               Text(
@@ -338,41 +340,32 @@ class _MakeComplaintState extends State<MakeComplaint> {
                     fontWeight: FontWeight.bold),
               ),
               SizedBox(height: SizeConfig.scaleHeight(12)),
-              Container(
-                width: double.infinity,
-                height: SizeConfig.scaleHeight(100),
-                decoration: BoxDecoration(
-                  color: Colors.grey.shade100,
-                  borderRadius: new BorderRadius.circular(10),
-                ),
-                child: Padding(
-                  padding: EdgeInsetsDirectional.all(8.0),
-                  child: TextField(
-                    controller: detailsController,
-                    decoration: InputDecoration(
-                      hintText: 'اكتب نص الطلب',
-                      hintStyle: TextStyle(
-                          fontFamily: 'Cairo',
-                          color: Color(0xFF707070),
-                          fontSize: 13),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Colors.grey.shade100,
-                        ),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Colors.grey.shade100,
-                        ),
-                      ),
+              TextField(
+                textAlignVertical: TextAlignVertical.top,
+                maxLines: 4,
+                controller: detailsController,
+                decoration: InputDecoration(
+                  hintText: 'اكتب نص الطلب',
+                  hintStyle: TextStyle(
+                      fontFamily: 'Cairo',
+                      color: Color(0xFF707070),
+                      fontSize: 13),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Color(0xFF0DBD7D),
                     ),
-                    // onChanged: (value) {
-                    //   setState(() {
-                    //     nadmin_id = value;
-                    //   });
-                    // },
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Color(0xFF0DBD7D),
+                    ),
                   ),
                 ),
+                // onChanged: (value) {
+                //   setState(() {
+                //     nadmin_id = value;
+                //   });
+                // },
               ),
               SizedBox(height: SizeConfig.scaleHeight(10)),
               Text(
@@ -565,7 +558,7 @@ class _MakeComplaintState extends State<MakeComplaint> {
                     await UserApiController()
                         .sendProblem(
                         title: titleController.text,
-                        admin_id: "2",cat: "2",
+                        admin_id: "2",cat:idCities,
                         content: "TestTest3001",
                         imagePath: _pickedFile!.path,
                         number_call: "059000000000",
